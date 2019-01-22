@@ -12,7 +12,7 @@ import {LendBookPage} from "../pages/lend-book/lend-book";
 import {CdListPage} from "../pages/cd-list/cd-list";
 import {LendCdPage} from "../pages/lend-cd/lend-cd";
 import {SettingsPage} from "../pages/settings/settings";
-import {PretService} from "../services/pret.service";
+import {LendService} from "../services/lend.service";
 
 @NgModule({
   declarations: [
@@ -43,7 +43,7 @@ import {PretService} from "../services/pret.service";
   providers: [
     StatusBar,
     SplashScreen,
-    PretService,
+    LendService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

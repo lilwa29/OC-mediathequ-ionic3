@@ -1,8 +1,8 @@
 import {CdModele} from "../modeles/Cd.modele";
-import {LivreModele} from "../modeles/Livre.modele";
+import {BookModele} from "../modeles/Book.modele";
 
-export class PretService {
-  livres : LivreModele[] = [];
+export class LendService {
+  books : BookModele[] = [];
   cds : CdModele[] = [];
   constructor(){
     this.initService();
@@ -19,7 +19,7 @@ export class PretService {
         singer: 'The Corrs',
         isLent: false }
     ];
-    this.livres = [
+    this.books = [
       { title : 'Orgeuil et Préjugés',
         author: 'Jane Austen',
         summary: 'Pourvus de cinq filles à marier, Mr et Mrs Bennett espèrent que l\'une d\'elles saura plaire à Mr Bingley , leur riche nouveau voisin. Malheureusement l\'orgueilleux Mr Darcy, ami influent de Bingley , voit d\'un très mauvais oeil son ami s\'éprendre de Jane Bennett',

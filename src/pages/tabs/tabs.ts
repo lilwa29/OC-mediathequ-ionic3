@@ -9,7 +9,5 @@ export class TabsPage {
 
   constructor(public menuCtrl: MenuController) { }
 
-  onToggleMenu(){
-    this.menuCtrl.open();
-  }
+
 }
