@@ -1,15 +1,4 @@
-<ion-header>
-  <ion-navbar>
-    <ion-buttons start>
-      <button ion-button icon-only (click)="onToggleMenu()">
-        <ion-icon name="menu"></ion-icon>
-      </button>
-    </ion-buttons>
-    <ion-title>Prêts</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-<ion-content padding>
-
-</ion-content>
+<ion-tabs>
+  <ion-tab [root]="bookListPage" tabTitle="Livres" tabIcon="book"></ion-tab>
+  <ion-tab [root]="cdListPage" tabTitle="CDs" tabIcon="disc"></ion-tab>
+</ion-tabs>

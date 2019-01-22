@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import {MenuController} from 'ionic-angular';
+import {CdListPage} from "../cd-list/cd-list";
+import {BookListPage} from "../book-list/book-list";
 
 @Component({
   selector: 'page-tabs',
   templateUrl: 'tabs.html',
 })
 export class TabsPage {
-
-  constructor(public menuCtrl: MenuController) { }
-
-
+  cdListPage = CdListPage;
+  bookListPage = BookListPage;
 }

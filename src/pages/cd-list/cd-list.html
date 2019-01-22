@@ -7,10 +7,17 @@
     </ion-buttons>
     <ion-title>CDs</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
-
+  <ion-list>
+    <button ion-item
+            icon-start
+            (click)="onLoadCd(i)"
+            *ngFor="let cd of cdsList; let i = index" >
+      <ion-icon name="disc"
+                [color]="cd.isLent ? 'danger' : 'secondary'" ></ion-icon>
+      {{ cd.title }}
+    </button>
+  </ion-list>
 </ion-content>
