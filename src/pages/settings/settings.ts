@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {MenuController} from 'ionic-angular';
 
 @Component({
   selector: 'page-settings',
@@ -7,7 +7,9 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class SettingsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(public menuCtrl: MenuController) { }
 
+  onToggleMenu(){
+    this.menuCtrl.open();
+  }
 }
