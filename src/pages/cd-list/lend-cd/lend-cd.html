@@ -23,15 +23,15 @@
         <button ion-button
                 full
                 color="secondary"
-                [disabled]="cd.isLent"
-                (click) = "onToggleCd()">Prêter</button>
+                [disabled]="!cd.isLent"
+                (click)="onToggleCd()">Rendre</button>
       </ion-col>
       <ion-col>
         <button ion-button
                 full
                 color="danger"
-                [disabled]="!cd.isLent"
-                (click)="onToggleCd()">Rendre</button>
+                [disabled]="cd.isLent"
+                (click) = "onToggleCd()">Prêter</button>
       </ion-col>
     </ion-row>
   </ion-grid>

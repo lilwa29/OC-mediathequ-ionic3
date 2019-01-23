@@ -13,6 +13,7 @@
   <ion-list>
     <button ion-item
             icon-start
+            [color]="cd.isLent ? 'danger-light' : 'secondary-light'"
             (click)="onLoadCd(i)"
             *ngFor="let cd of cdsList; let i = index" >
       <ion-icon name="disc"
