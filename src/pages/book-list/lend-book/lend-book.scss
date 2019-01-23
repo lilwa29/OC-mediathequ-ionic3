@@ -1,12 +1,12 @@
 page-lend-book {
   .is-lent {
     ion-card, ion-item, ion-card-header, ion-card-content {
-      background-color: #fbb6b6;
+      background-color: color($colors, 'danger-light');
     }
   }
   .is-not-lent {
     ion-card, ion-item, ion-card-header, ion-card-content {
-      background-color: #9eeeb6;
+      background-color: color($colors, 'secondary-light');
     }
   }
 }

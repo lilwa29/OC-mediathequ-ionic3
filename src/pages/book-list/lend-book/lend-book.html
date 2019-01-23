@@ -27,15 +27,15 @@
         <button ion-button
                 full
                 color="secondary"
-                [disabled]="book.isLent"
-                (click) = "onToggleBook()">Prêter</button>
+                [disabled]="!book.isLent"
+                (click)="onToggleBook()">Rendre</button>
       </ion-col>
       <ion-col>
         <button ion-button
                 full
                 color="danger"
-                [disabled]="!book.isLent"
-                (click)="onToggleBook()">Rendre</button>
+                [disabled]="book.isLent"
+                (click) = "onToggleBook()">Prêter</button>
       </ion-col>
     </ion-row>
   </ion-grid>

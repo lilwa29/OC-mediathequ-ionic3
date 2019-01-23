@@ -25,6 +25,6 @@ export class LendBookPage implements OnInit {
     this.viewCtrl.dismiss();
   }
   onToggleBook() {
-    this.lendService.preterOuRendre(this.index, "book");
+    this.lendService.preterOuRendre(this.book);
   }
 }
