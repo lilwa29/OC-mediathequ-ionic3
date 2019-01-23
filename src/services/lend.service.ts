@@ -32,19 +32,7 @@ export class LendService {
 
     ];
   }
-  preterOuRendre(index: number, typeObject: string){
-    switch(typeObject) {
-      case "cd": {
-        this.cds[index].isLent = !this.cds[index].isLent;
-        break;
-      }
-      case "book": {
-        this.books[index].isLent = !this.books[index].isLent;
-        break;
-      }
-      default: {
-        break;
-      }
-    }
+  preterOuRendre(object: any){
+    object.isLent = !object.isLent;
   }
 }
