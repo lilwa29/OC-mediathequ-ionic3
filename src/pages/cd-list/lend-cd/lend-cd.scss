@@ -1,3 +1,12 @@
 page-lend-cd {
-
+  .is-lent {
+    ion-card, ion-card-header, ion-card-content {
+      background-color: #fbb6b6;
+    }
+  }
+  .is-not-lent {
+    ion-card, ion-card-header, ion-card-content {
+      background-color: #9eeeb6;
+    }
+  }
 }

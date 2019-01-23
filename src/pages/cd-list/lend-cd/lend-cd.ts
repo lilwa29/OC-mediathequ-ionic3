@@ -23,6 +23,6 @@ export class LendCdPage {
     this.viewCtrl.dismiss();
   }
   onToggleCd() {
-    this.cd.isLent = !this.cd.isLent;
+    this.lendService.preterOuRendre(this.index, "cd");
   }
 }

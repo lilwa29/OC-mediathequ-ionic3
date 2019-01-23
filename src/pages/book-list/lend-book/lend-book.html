@@ -8,7 +8,8 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card>
+  <ion-card [ngClass]="{'is-lent' : book.isLent,
+                        'is-not-lent' : !book.isLent }">
     <ion-card-header>
       <ion-item>
         <h2>{{ book.title }}</h2>
@@ -34,7 +35,7 @@
                 full
                 color="danger"
                 [disabled]="!book.isLent"
-                (click)="onToggleBook()">Récupérer</button>
+                (click)="onToggleBook()">Rendre</button>
       </ion-col>
     </ion-row>
   </ion-grid>
