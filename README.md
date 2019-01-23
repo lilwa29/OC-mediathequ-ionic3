@@ -1,2 +1,2 @@
-# OC-mediathequ-ionic3
-Gestion mobile de livres et CDD (Ionic3)
+# OC-mediatheque-ionic3
+Gestion mobile de livres et CD (Ionic3)
