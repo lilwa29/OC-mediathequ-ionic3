@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {NavParams, ViewController} from 'ionic-angular';
+import {NavController, NavParams, ViewController} from 'ionic-angular';
 import {BookModel} from "../../../modeles/Book.model";
 import {LendService} from "../../../services/lend.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'page-lend-book',
@@ -9,22 +10,36 @@ import {LendService} from "../../../services/lend.service";
 })
 export class LendBookPage implements OnInit {
   book : BookModel;
+  bookForm: FormGroup;
   index : number;
 
   constructor(public navParams: NavParams,
               private viewCtrl: ViewController,
-              private lendService: LendService) {
-  }
+              private lendService: LendService,
+              private formBuilder: FormBuilder,
+              private navCtrl: NavController) { }
   ngOnInit(){
     this.index = this.navParams.get('index');
-    console.log("Index recu " + this.index);
-    this.book = this.lendService.books[+this.index];
-    console.log("Book " + this.book);
+    this.book = this.lendService.getBook(+this.index);
+    this.initForm();
   }
   dismissModal(){
     this.viewCtrl.dismiss();
   }
   onToggleBook() {
-    this.lendService.preterOuRendre(this.book);
+    this.book.isLent = !this.book.isLent;
+  }
+  initForm(){
+    this.bookForm = this.formBuilder.group({
+      nameLent : ['', Validators.required]
+    });
+  }
+  onSubmitForm(){
+    let nameLent = '';
+    if(this.book.isLent) {
+      nameLent = this.bookForm.get('nameLent').value;
+    }
+    this.lendService.lentOrGiveBackBook(this.index, nameLent);
+    this.navCtrl.pop();
   }
 }

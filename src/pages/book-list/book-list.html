@@ -19,6 +19,7 @@
       <ion-icon name="book"
                 [color]="book.isLent ? 'danger' : 'secondary'" ></ion-icon>
       {{ book.title }}
+      <span float-right *ngIf="book.isLent"><i>Prêté à {{ book.nameLent }}</i></span>
     </button>
   </ion-list>
 </ion-content>

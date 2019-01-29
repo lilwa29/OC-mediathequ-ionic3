@@ -39,4 +39,17 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <form [formGroup]="bookForm">
+    <ion-list *ngIf="book.isLent">
+      <ion-item-divider>Nom de l'emprunteur</ion-item-divider>
+      <ion-item>
+        <ion-input placeholder="John Smith" formControlName="nameLent"></ion-input>
+      </ion-item>
+    </ion-list>
+    <button ion-button
+            full
+            [disabled]="bookForm.invalid && book.isLent"
+            (click)="onSubmitForm()">Enregistrer</button>
+  </form>
 </ion-content>

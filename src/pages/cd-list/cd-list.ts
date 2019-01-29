@@ -3,6 +3,7 @@ import {MenuController, ModalController} from 'ionic-angular';
 import {LendService} from "../../services/lend.service";
 import {CdModel} from "../../modeles/Cd.model";
 import {LendCdPage} from "./lend-cd/lend-cd";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'page-cd-list',
@@ -10,6 +11,7 @@ import {LendCdPage} from "./lend-cd/lend-cd";
 })
 export class CdListPage {
   cdsList: CdModel[];
+  cdsSubscription : Subscription;
 
   constructor(private modalCtrl: ModalController,
               private lendService: LendService,
@@ -20,7 +22,12 @@ export class CdListPage {
   }
 
   ionViewWillEnter(){
-    this.cdsList = this.lendService.cds.slice();
+    this.cdsSubscription = this.lendService.cds$.subscribe(
+      (cdsList) => {
+        this.cdsList = cdsList;
+      }
+    );
+    this.lendService.emitCdsSubject();
   }
   onLoadCd(index: number){
     let modal = this.modalCtrl.create(LendCdPage, {index: index});

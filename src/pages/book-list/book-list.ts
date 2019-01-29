@@ -3,6 +3,7 @@ import {MenuController, ModalController} from 'ionic-angular';
 import {BookModel} from "../../modeles/Book.model";
 import {LendService} from "../../services/lend.service";
 import {LendBookPage} from "./lend-book/lend-book";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'page-book-list',
@@ -11,6 +12,7 @@ import {LendBookPage} from "./lend-book/lend-book";
 export class BookListPage {
 
   booksList: BookModel[];
+  booksSubscription : Subscription;
 
   constructor(private modalCtrl: ModalController,
               private lendService: LendService,
@@ -21,7 +23,12 @@ export class BookListPage {
   }
 
   ionViewWillEnter(){
-    this.booksList = this.lendService.books.slice();
+    this.booksSubscription = this.lendService.books$.subscribe(
+      (booksList) => {
+        this.booksList = booksList;
+      }
+    );
+    this.lendService.emitBooksSubject();
   }
   onLoadBook(index: number){
     let modal = this.modalCtrl.create(LendBookPage, {index: +index});

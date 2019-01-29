@@ -19,6 +19,7 @@
       <ion-icon name="disc"
                 [color]="cd.isLent ? 'danger' : 'secondary'" ></ion-icon>
       {{ cd.title }}
+      <span float-right *ngIf="cd.isLent"><i>Prêté à {{ cd.nameLent }}</i></span>
     </button>
   </ion-list>
 </ion-content>

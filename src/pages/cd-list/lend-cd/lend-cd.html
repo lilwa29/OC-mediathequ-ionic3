@@ -35,5 +35,18 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <form [formGroup]="cdForm">
+    <ion-list *ngIf="cd.isLent">
+      <ion-item-divider>Nom de l'emprunteur</ion-item-divider>
+      <ion-item>
+        <ion-input placeholder="{{cd.nameLent}}" formControlName="nameLent"></ion-input>
+      </ion-item>
+    </ion-list>
+    <button ion-button
+            full
+            [disabled]="cdForm.invalid && cd.isLent"
+            (click)="onSubmitForm()">Enregistrer</button>
+  </form>
 </ion-content>
 
