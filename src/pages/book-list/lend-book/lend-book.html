@@ -49,6 +49,7 @@
     </ion-list>
     <button ion-button
             full
+            type="submit"
             [disabled]="bookForm.invalid && book.isLent"
             (click)="onSubmitForm()">Enregistrer</button>
   </form>

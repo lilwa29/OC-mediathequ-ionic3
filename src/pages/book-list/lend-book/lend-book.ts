@@ -39,7 +39,7 @@ export class LendBookPage implements OnInit {
     if(this.book.isLent) {
       nameLent = this.bookForm.get('nameLent').value;
     }
-    this.lendService.lentOrGiveBackBook(this.index, nameLent);
+    this.lendService.lentOrGiveBackBook(this.index, this.book.isLent, nameLent);
     this.navCtrl.pop();
   }
 }

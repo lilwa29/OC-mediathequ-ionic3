@@ -13,6 +13,8 @@ import {CdListPage} from "../pages/cd-list/cd-list";
 import {LendCdPage} from "../pages/cd-list/lend-cd/lend-cd";
 import {SettingsPage} from "../pages/settings/settings";
 import {LendService} from "../services/lend.service";
+import {AuthService} from "../services/auth.service";
+import {AuthPage} from "../pages/auth/auth";
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import {LendService} from "../services/lend.service";
     CdListPage,
     LendCdPage,
     SettingsPage,
+    AuthPage,
   ],
   imports: [
     BrowserModule,
@@ -39,11 +42,13 @@ import {LendService} from "../services/lend.service";
     CdListPage,
     LendCdPage,
     SettingsPage,
+    AuthPage,
   ],
   providers: [
     StatusBar,
     SplashScreen,
     LendService,
+    AuthService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

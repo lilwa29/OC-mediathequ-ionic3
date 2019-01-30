@@ -40,14 +40,14 @@ export class LendService {
 
     ];
   }
-  lentOrGiveBackBook(index : number , nameLent: string ) {
-    this._lentOrGiveBack(this.books[index], nameLent);
+  lentOrGiveBackBook(index : number , isLent : boolean, nameLent: string ) {
+    this._lentOrGiveBack(this.books[index], isLent, nameLent);
   }
-  lentOrGiveBackCd(index : number , nameLent: string ) {
-    this._lentOrGiveBack(this.cds[index], nameLent);
+  lentOrGiveBackCd(index : number , isLent : boolean, nameLent: string ) {
+    this._lentOrGiveBack(this.cds[index], isLent, nameLent);
   }
-  private _lentOrGiveBack(object: BookModel | CdModel, nameLent: string) {
-    object.isLent = !object.isLent;
+  private _lentOrGiveBack(object: BookModel | CdModel, isLent : boolean, nameLent: string) {
+    object.isLent = isLent;
     object.nameLent = nameLent;
   }
   emitBooksSubject() {

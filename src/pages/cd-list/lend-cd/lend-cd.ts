@@ -39,7 +39,7 @@ export class LendCdPage {
     if(this.cd.isLent) {
       nameLent = this.cdForm.get('nameLent').value;
     }
-    this.lendService.lentOrGiveBackCd(this.index, nameLent);
+    this.lendService.lentOrGiveBackCd(this.index, this.cd.isLent, nameLent);
     this.navCtrl.pop();
   }
 }
