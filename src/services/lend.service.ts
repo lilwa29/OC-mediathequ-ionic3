@@ -48,7 +48,7 @@ export class LendService {
     return Object.assign({}, this.books[index]);
   }
 
-  /**** STOCKAGE dans le STORAGE DU DEVICE ***/
+  /**** STOCKAGE/RECUPERATION dans/depuis le STORAGE DU DEVICE ***/
   saveBooksInStorage(){
     this.storage.set('books', this.books);
   }
@@ -56,7 +56,6 @@ export class LendService {
     this.storage.set('cds', this.cds);
   }
   fetchDataFromStorage(){
-    console.log("get data");
     this.storage.get('books').then(
       (books) => {
         if (books && books.length) {
