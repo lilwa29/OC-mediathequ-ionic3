@@ -27,7 +27,7 @@ export class CdListPage implements OnInit, OnDestroy {
         this.cdsList = cdsList;
       }
     );
-    this.lendService.emitCdsSubject();
+    this.lendService.fetchDataFromStorage();
   }
   ngOnDestroy(): void {
     this.cdsSubscription.unsubscribe();

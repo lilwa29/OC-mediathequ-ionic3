@@ -1,50 +1,32 @@
 import {CdModel} from "../modeles/Cd.model";
 import {BookModel} from "../modeles/Book.model";
 import {Subject} from "rxjs";
+import * as firebase from "firebase";
+import DataSnapshot = firebase.database.DataSnapshot;
+import {Injectable} from "@angular/core";
+import { Storage } from "@ionic/storage";
 
+@Injectable()
 export class LendService {
   books : BookModel[] = [];
   cds : CdModel[] = [];
   books$ = new Subject<BookModel[]>();
   cds$ = new Subject<CdModel[]>();
 
-  constructor() {
-    this.initService();
-  }
-  initService() {
-    this.cds = [
-      { title : 'OverExposed',
-        singer: 'Maroon5',
-        isLent: true,
-        nameLent: 'Jane Doe'},
-      { title : 'Love On Top',
-        singer: 'Beyoncé',
-        isLent: false ,
-        nameLent: ''},
-      { title : 'Unplugged',
-        singer: 'The Corrs',
-        isLent: false,
-        nameLent: ''},
-    ];
-    this.books = [
-      { title : 'Orgeuil et Préjugés',
-        author: 'Jane Austen',
-        summary: 'Pourvus de cinq filles à marier, Mr et Mrs Bennett espèrent que l\'une d\'elles saura plaire à Mr Bingley , leur riche nouveau voisin. Malheureusement l\'orgueilleux Mr Darcy, ami influent de Bingley , voit d\'un très mauvais oeil son ami s\'éprendre de Jane Bennett',
-        isLent: false,
-        nameLent: ''},
-      { title : 'Le cycle des robots, Tome 1',
-        author: 'Isaac Asimov',
-        summary: 'Susan Calvin est robopsychologue à l\'United States Robots, Inc. Née en 1982, elle a aujourd\'hui 75 ans. Ce livre relate ses souvenirs sur l\'évolution du robot dans l\'histoire humaine, depuis Robbie qui, en 1996, fut vendu comme bonne d\'enfants jusqu\'à Byerley qui devient président de la Fédération mondiale terrestre en 2044',
-        isLent: true,
-        nameLent: 'Mélanie'},
+  constructor(private storage: Storage) { }
 
-    ];
-  }
+  // Rendre ou Récupérer un Livre
   lentOrGiveBackBook(index : number , isLent : boolean, nameLent: string ) {
     this._lentOrGiveBack(this.books[index], isLent, nameLent);
+    this.saveBooksInStorage();
+    this.emitBooksSubject();
   }
+
+  // Rendre ou Récupérer un Cd
   lentOrGiveBackCd(index : number , isLent : boolean, nameLent: string ) {
     this._lentOrGiveBack(this.cds[index], isLent, nameLent);
+    this.saveCdsInStorage();
+    this.emitCdsSubject();
   }
   private _lentOrGiveBack(object: BookModel | CdModel, isLent : boolean, nameLent: string) {
     object.isLent = isLent;
@@ -64,5 +46,133 @@ export class LendService {
   // Envoyer une copie de l'objet BookModek désiré
   getBook(index: number) {
     return Object.assign({}, this.books[index]);
+  }
+
+  /**** STOCKAGE dans le STORAGE DU DEVICE ***/
+  saveBooksInStorage(){
+    this.storage.set('books', this.books);
+  }
+  saveCdsInStorage(){
+    this.storage.set('cds', this.cds);
+  }
+  fetchDataFromStorage(){
+    console.log("get data");
+    this.storage.get('books').then(
+      (books) => {
+        if (books && books.length) {
+          this.books = books;
+        }
+        this.emitBooksSubject();
+      }
+    );
+    this.storage.get('cds').then(
+      (cds) => {
+        if (cds && cds.length) {
+          this.cds = cds;
+        }
+        this.emitCdsSubject();
+      }
+    );
+  }
+
+  /*** BACKEND BASE DE DONNEES FIREBASE ***/
+  saveBooks() {
+    return new Promise(
+      (resolve, reject) => {
+        firebase.database().ref('books').set(this.books).then(
+          (data: DataSnapshot) => {
+            resolve(data);
+          },
+          (error) => {
+            reject(error);
+          }
+        );
+      }
+    );
+  }
+  saveCds() {
+    return new Promise(
+      (resolve, reject) => {
+        firebase.database().ref('cds').set(this.cds).then(
+          (data: DataSnapshot) => {
+            resolve(data);
+          },
+          (error) => {
+            reject(error);
+          }
+        );
+      }
+    );
+  }
+  saveData() {
+    return new Promise(
+      (resolve, reject) => {
+        this.saveBooks().then(
+          () => {
+            this.saveCds().then(
+              () => {
+                resolve("Données sauvegardées");
+              },
+              (error) => {
+                reject("Problème dans la sauvegarde des Cds : " + error);
+              }
+            )
+          },
+          (error) => {
+            reject("Problème dans la sauvegarde des Livres : " + error);
+          }
+        );
+      }
+    );
+  }
+  fetchBooks() {
+    return new Promise(
+      (resolve, reject) => {
+        firebase.database().ref('books').once('value').then(
+          (data: DataSnapshot) => {
+            this.books = data.val();
+            this.saveBooksInStorage();
+            this.emitBooksSubject();
+            resolve('Livres récupérés avec succès');
+          }, (error) => {
+            reject(error);
+          }
+        )
+      }
+    )
+  }
+  fetchCds() {
+    return new Promise(
+      (resolve, reject) => {
+        firebase.database().ref('cds').once('value').then(
+          (data: DataSnapshot) => {
+            this.cds = data.val();
+            this.saveCdsInStorage();
+            this.emitCdsSubject();
+            resolve('Cds récupérés avec succès');
+          }, (error) => {
+            reject(error);
+          }
+        )
+      }
+    )
+  }
+  fetchData(){
+    return new Promise(
+      (resolve, reject) => {
+        this.fetchBooks().then(
+          () => {
+            this.fetchCds().then(
+              () => {
+                resolve('Données récupérées');
+              },
+              (error) => {
+                reject('Erreur dans la récupération des Cds : ' + error);
+              });
+          },
+          (error) => {
+            reject('Erreur dans la récupération des Livres : ' + error);
+          });
+      });
   }
 }

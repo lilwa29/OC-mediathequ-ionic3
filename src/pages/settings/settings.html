@@ -10,5 +10,11 @@
 </ion-header>
 
 <ion-content padding>
-  <p>Vous pouvez modifier les réglages de l'application sur cet écran</p>
+  <ion-card>
+    <ion-card-header>Données du serveur</ion-card-header>
+    <ion-card-content>
+      <button ion-button block outline (click)="onSaveData()">Enregistrer</button>
+      <button ion-button block outline (click)="onFetchData()">Récupérer</button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

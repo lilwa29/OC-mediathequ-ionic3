@@ -28,7 +28,7 @@ export class BookListPage implements OnInit, OnDestroy {
         this.booksList = booksList;
       }
     );
-    this.lendService.emitBooksSubject();
+    this.lendService.fetchDataFromStorage();
   }
 
   ngOnDestroy(): void {
@@ -39,5 +39,4 @@ export class BookListPage implements OnInit, OnDestroy {
     let modal = this.modalCtrl.create(LendBookPage, {index: +index});
     modal.present();
   }
-
 }
